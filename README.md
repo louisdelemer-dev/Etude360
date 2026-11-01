@@ -1,4 +1,4 @@
-# Étude 360 V0.4 — Simulation d'étude de commissaire de justice
+# Étude 360 V0.5 — Simulation d'étude de commissaire de justice
 
 Version jouable statique, déploiement GitHub + Netlify : build command vide, publish directory `.`.
 
@@ -19,3 +19,11 @@ Références principales :
 - https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000028747701 (L111-8 CPCE)
 
 Tout le jeu repose sur des personnes et des données fictives.
+
+## V0.5 : contrôle et compte de résultat mensuel
+- Journal comptable daté à partir de l’installation : émoluments, honoraires, coûts par acte, salaires, frais fixes, recrutement et prospection.
+- Résultat mensuel = CA HT comptabilisé - charges enregistrées. Taux de croissance du CA par rapport au mois précédent.
+- Correction : droits débiteur calculés exclus des recettes tant qu’ils ne sont pas encaissés.
+- Correction : provisions créancier exclues de la trésorerie propre ; le produit HT des actes financés par provision est simulé séparément.
+- Avertissement : les comptes mensuels des sauvegardes anciennes ne peuvent être reconstruits en détail. Les données sont suivies à compter de la V0.5.
+- Limite : suivi de gestion pédagogique, sans états comptables certifiables, TVA exigible détaillée, amortissements ni dettes fiscales et sociales.
