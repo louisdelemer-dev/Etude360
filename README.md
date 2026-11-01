@@ -1,22 +1,12 @@
-# Étude 360 — simulateur d'étude de commissaire de justice
+# Étude 360 · V0.2 — Simulateur d'étude de commissaire de justice
 
-Prototype jouable (V0.1) sans dépendances, adapté à GitHub + Netlify.
+Application web statique déployable sur Netlify (publication : `.` ; aucune commande de build).
 
-## Publier
-1. Créer un dépôt GitHub (par exemple `etude-360`).
-2. Ajouter à la racine les fichiers `index.html`, `netlify.toml` et `README.md`.
-3. Dans Netlify : Add new project → Import an existing project → GitHub → sélectionner le dépôt.
-4. Build command : laisser vide. Publish directory : `.`. Déployer.
+## Nouveau : décisions sur les dossiers
+Ouvrez **Dossiers**, cliquez sur une créance puis décidez : relance, appel, recherche de solvabilité, échéancier, mise en demeure, obtention fictive d’un titre, commandement, saisie-attribution, saisie-vente mobilière, saisie de rémunérations, classement sans suite. Passez au jour suivant pour découvrir les réactions. Les paiements alimentent les fonds de tiers. Les échéanciers peuvent être respectés ou échouer. Certaines actions sont bloquées en absence de prérequis.
 
-## Fonctionnalités
-- Tableau de bord, passage du temps (1 ou 7 jours)
-- Arrivée automatique de dossiers fictifs, gestion de leurs étapes et clôture
-- Dossiers personnalisés, collaborateurs, formation, recrutement
-- Mandants, prospection, marketing
-- Suivi de trésorerie et distinction des fonds de tiers
-- Journal d'événements, sauvegarde locale (`localStorage`), remise à zéro
+## Attention
+Simulation ludique avec données intégralement fictives et choix simplifiés. Ce logiciel n'est pas un outil de procédure ni un simulateur réglementaire. Les délais de traitement, les honoraires, les coûts et les profils sont imaginaires. Les questions d'insaisissabilité, de notification, de compétence, de procédures et de contestations nécessiteraient une modélisation juridique complète pour une simulation fidèle.
 
-## Limites importantes
-Simulation ludique et simplifiée : les frais, honoraires, taux de réussite, durées de procédure, stratégies et salaires sont fictifs. Les tarifs réglementés, les règles de compétence, les voies d'exécution, la comptabilité des fonds de tiers et les exigences déontologiques ne sont **pas** implémentés juridiquement. Ne jamais saisir de données personnelles réelles dans cette version.
-
-La sauvegarde est conservée dans le navigateur courant, sans compte ni synchronisation. Pour une version multi-utilisateurs : prévoir une base de données et authentification (ex. Supabase) avec une architecture sécurisée.
+## Installation
+Déposez le contenu de ce dossier à la racine de votre dépôt GitHub. Dans Netlify choisissez « Import from Git » et publiez la racine `.` sans build. Sauvegarde navigateur via localStorage, compatible avec la sauvegarde V0.1. Une nouvelle partie permet de repartir à zéro.
