@@ -1,12 +1,23 @@
-# Étude 360 · V0.2 — Simulateur d'étude de commissaire de justice
+# Étude 360 · V0.3 — Simulation d'étude de commissaire de justice
 
-Application web statique déployable sur Netlify (publication : `.` ; aucune commande de build).
+Application statique HTML/CSS/JavaScript. Fonctionne directement avec GitHub et Netlify, sans compilation (publish directory `.`).
 
-## Nouveau : décisions sur les dossiers
-Ouvrez **Dossiers**, cliquez sur une créance puis décidez : relance, appel, recherche de solvabilité, échéancier, mise en demeure, obtention fictive d’un titre, commandement, saisie-attribution, saisie-vente mobilière, saisie de rémunérations, classement sans suite. Passez au jour suivant pour découvrir les réactions. Les paiements alimentent les fonds de tiers. Les échéanciers peuvent être respectés ou échouer. Certaines actions sont bloquées en absence de prérequis.
+## Nouveautés V0.3
+- **Bureau du jour** dans le menu : décisions à prendre aujourd'hui, tâches en retard (J+), échéances futures, lien direct vers chaque affaire.
+- Les dossiers laissés sans arbitrage ne se règlent pas automatiquement ; avancer de 1 ou 7 jours fait apparaître les retards cumulés.
+- Référentiel pédagogique 2026 sur certains actes : signification/commandement et saisie-attribution avec coefficient de tranche 0,5 / 1 / 2 ; distinction émoluments réglementés, honoraires libres, TVA et coûts internes estimatifs.
+- Journal des actes et ventilation des recettes. Comptes de fonds de tiers séparés de l'exploitation.
+- Conservation des anciennes parties sauvegardées sur le même navigateur (`localStorage` clé `etude360-v1`).
 
-## Attention
-Simulation ludique avec données intégralement fictives et choix simplifiés. Ce logiciel n'est pas un outil de procédure ni un simulateur réglementaire. Les délais de traitement, les honoraires, les coûts et les profils sont imaginaires. Les questions d'insaisissabilité, de notification, de compétence, de procédures et de contestations nécessiteraient une modélisation juridique complète pour une simulation fidèle.
+## Limites économiques importantes
+Le barème complet 2026, droits proportionnels et d'engagement, frais de déplacement, débours exacts, taxes, remises, vacations, différences entre procédures et parties supportant les frais ne sont **pas entièrement modélisés**. Les actes sélectionnés utilisent des bases de tarif publiées mais les calculs qui en découlent demeurent approximatifs. La facturation HT est réputée encaissée instantanément ; la TVA est isolée de la trésorerie d'exploitation. Les coûts opérationnels sont des hypothèses de simulation, non des tarifs officiels. Le recouvrement au succès est un forfait simplifié de jeu. Ne pas utiliser pour facturer un vrai dossier.
 
 ## Installation
-Déposez le contenu de ce dossier à la racine de votre dépôt GitHub. Dans Netlify choisissez « Import from Git » et publiez la racine `.` sans build. Sauvegarde navigateur via localStorage, compatible avec la sauvegarde V0.1. Une nouvelle partie permet de repartir à zéro.
+Téléversez le contenu du dossier `simulation-etude-justice/` à la racine du dépôt GitHub, puis Netlify → Import from Git. Build command vide, publish directory `.`.
+
+## Sources tarifaires à contrôler pour toute évolution
+- Code de commerce, art. A444-10 à A444-52 : https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000053602234
+- Chambre nationale : https://commissaire-justice.fr/profession-commissaire-de-justice/tarif-frais-et-honoraires-commissaires-de-justice/
+- Arrêté du 25 février 2026 applicable depuis le 1er mars 2026.
+
+Toutes les personnes et créances du jeu sont fictives.
