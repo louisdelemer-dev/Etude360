@@ -1,23 +1,21 @@
-# Étude 360 · V0.3 — Simulation d'étude de commissaire de justice
+# Étude 360 V0.4 — Simulation d'étude de commissaire de justice
 
-Application statique HTML/CSS/JavaScript. Fonctionne directement avec GitHub et Netlify, sans compilation (publish directory `.`).
+Version jouable statique, déploiement GitHub + Netlify : build command vide, publish directory `.`.
 
-## Nouveautés V0.3
-- **Bureau du jour** dans le menu : décisions à prendre aujourd'hui, tâches en retard (J+), échéances futures, lien direct vers chaque affaire.
-- Les dossiers laissés sans arbitrage ne se règlent pas automatiquement ; avancer de 1 ou 7 jours fait apparaître les retards cumulés.
-- Référentiel pédagogique 2026 sur certains actes : signification/commandement et saisie-attribution avec coefficient de tranche 0,5 / 1 / 2 ; distinction émoluments réglementés, honoraires libres, TVA et coûts internes estimatifs.
-- Journal des actes et ventilation des recettes. Comptes de fonds de tiers séparés de l'exploitation.
-- Conservation des anciennes parties sauvegardées sur le même navigateur (`localStorage` clé `etude360-v1`).
+## Mise à jour
+- Barèmes proportionnels A444-31 et A444-32 à tranches, calculés sur le principal recouvré cumulatif.
+- Ventilation des paiements : frais récupérables, droits du débiteur et principal, avec suivi séparé.
+- Lors d'une mesure d'exécution : appel de provision auprès du créancier, facturation indicative de l'acte et ajout des frais récupérables TTC au décompte débiteur.
+- Remboursement au créancier de la provision à hauteur des frais effectivement recouvrés auprès du débiteur, pas automatiquement lorsqu'une saisie est tentée.
+- Affichage dans la fiche dossier des soldes détaillés et des provisions.
+- Conservation des sauvegardes préexistantes (localStorage `etude360-v1`).
 
-## Limites économiques importantes
-Le barème complet 2026, droits proportionnels et d'engagement, frais de déplacement, débours exacts, taxes, remises, vacations, différences entre procédures et parties supportant les frais ne sont **pas entièrement modélisés**. Les actes sélectionnés utilisent des bases de tarif publiées mais les calculs qui en découlent demeurent approximatifs. La facturation HT est réputée encaissée instantanément ; la TVA est isolée de la trésorerie d'exploitation. Les coûts opérationnels sont des hypothèses de simulation, non des tarifs officiels. Le recouvrement au succès est un forfait simplifié de jeu. Ne pas utiliser pour facturer un vrai dossier.
+## Limites juridiques et comptables
+Simulation pédagogique, non logiciel de taxation. Le calcul n'inclut pas toutes les exceptions, les procédures spéciales, les remises, le tarif complet des actes, les frais de déplacement et débours ou les règles exactes d'imputation. Le droit débiteur est modélisé pour les dossiers sur titre mais son exigibilité réelle dépend notamment des dispositions et exceptions applicables. Les recettes au titre des droits du créancier sont présumées facturées et réglées immédiatement. La provision du créancier est réputée versée immédiatement dans le jeu ; la répartition comptable simplifiée des provisions, fonds clients et recettes ne remplace pas une comptabilité réelle.
 
-## Installation
-Téléversez le contenu du dossier `simulation-etude-justice/` à la racine du dépôt GitHub, puis Netlify → Import from Git. Build command vide, publish directory `.`.
+Références principales :
+- https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000049217994 (A444-31)
+- https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000049217998 (A444-32)
+- https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000028747701 (L111-8 CPCE)
 
-## Sources tarifaires à contrôler pour toute évolution
-- Code de commerce, art. A444-10 à A444-52 : https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000053602234
-- Chambre nationale : https://commissaire-justice.fr/profession-commissaire-de-justice/tarif-frais-et-honoraires-commissaires-de-justice/
-- Arrêté du 25 février 2026 applicable depuis le 1er mars 2026.
-
-Toutes les personnes et créances du jeu sont fictives.
+Tout le jeu repose sur des personnes et des données fictives.
