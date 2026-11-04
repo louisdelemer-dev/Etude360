@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#131f36">
-<title>Étude 360 — V1.1</title>
+<title>Étude 360 — V1.2</title>
 <style>
 :root{
   --bg:#edf2f8; --ink:#16243b; --muted:#6f7d91; --line:#dfe7f1; --panel:#ffffff;
@@ -47,6 +47,8 @@ main{flex:1;padding:24px;max-width:1680px;width:100%;margin:0 auto}.head{display
 .result-good{color:var(--green)} .result-bad{color:var(--red)} .result-warn{color:var(--orange)}
 @media(max-width:1180px){.hero,.columns,.kanban,.cards,.grid2,.grid3,.objectives{grid-template-columns:1fr 1fr}.shell{display:block}aside{width:100%;padding:8px 10px}.subnote,.section-title{display:none}nav{flex-direction:row;overflow:auto;white-space:nowrap}nav button{width:auto}main{padding:16px}}
 @media(max-width:760px){header{padding:14px 16px;flex-direction:column;align-items:flex-start}.hero,.columns,.cards,.grid2,.grid3,.kanban,.objectives{grid-template-columns:1fr}.case-grid{grid-template-columns:1fr 1fr}.head h1{font-size:24px}main{padding:14px}.panel,.metric,.hero-side,.hero-main{padding:14px}}
+
+.incident-ribbon{display:flex;align-items:center;gap:13px;flex-wrap:wrap;background:linear-gradient(120deg,#fff1d6,#fff8eb);border:1px solid #e8c990;border-radius:17px;padding:14px 17px;margin:0 0 16px;box-shadow:0 6px 22px #ae84271a}.incident-ribbon>div:nth-child(2){flex:1;min-width:180px}.incident-symbol,.outcome-icon{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:#fff;color:#243c63;font-size:23px;flex-shrink:0}.incident-art{width:75px;height:75px;border-radius:20px;display:grid;place-items:center;font-size:38px;background:#edf3fe}.incident-art.red{background:#ffeded}.incident-art.gold{background:#fff2da}.incident-art.green{background:#e7f7ee}.incident-head{display:flex;align-items:center;gap:16px;padding:14px 0 6px}.incident-copy{line-height:1.75;font-size:15px;color:#40526a}.incident-choices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.choice{border:1px solid #dfe7f1;background:#f7faff;border-radius:15px;text-align:left;display:flex;flex-direction:column;align-items:flex-start;gap:9px;padding:16px}.choice:hover{border-color:#b08d4f;background:#fffaf0}.choice>span{display:grid;place-items:center;width:29px;height:29px;border-radius:10px;background:#e6edf8;font-weight:800}.choice>strong{font-size:14px;line-height:1.4}.choice>small{color:#71829a;font-size:12px}.outcome-feed{display:flex;flex-direction:column;gap:12px}.outcome-item{display:flex;gap:11px;align-items:flex-start;padding:10px;background:#f7f9fc;border-radius:12px}.outcome-item b{font-size:13px}.outcome-item small{display:block;color:#78869b;font-size:12px;line-height:1.45;margin-top:5px}.kanban-large{grid-template-columns:repeat(3,minmax(0,1fr))}.kanban-large .kanban-col{background:#f8fafd}.kanban-case{background:#fff;border:1px solid #e2e8f1;border-radius:15px;padding:13px;margin-top:10px;box-shadow:0 5px 16px #1426410a}.kanban-case>b{font-size:13px;display:block;margin-top:9px}.kanban-case>small{display:block;color:#78869b;margin-top:4px}.mini-portrait{height:44px;width:44px;border-radius:13px;display:grid;place-items:center;font-size:22px;background:#edf3fc}.mini-portrait.red{background:#ffe8e8}.mini-portrait.gold{background:#fff0d8}.mini-portrait.green{background:#e6f5eb}.case-row-inline{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:11px;font-size:12px;color:#6c7991}.case-row-inline strong{color:#243750;font-size:16px}.empty-state{font-size:12px;color:#8796ab;border:1px dashed #cdd8e6;padding:15px;border-radius:12px;margin-top:10px}@media(max-width:950px){.kanban-large{grid-template-columns:1fr 1fr}.incident-choices{grid-template-columns:1fr}}@media(max-width:650px){.kanban-large{grid-template-columns:1fr}.incident-head{align-items:flex-start}.incident-choices{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -55,7 +57,7 @@ main{flex:1;padding:24px;max-width:1680px;width:100%;margin:0 auto}.head{display
     <div class="logo">⚖</div>
     <div>
       <div style="font-size:20px;font-weight:800">ÉTUDE 360</div>
-      <div class="tag">SIMULATION DE COMMISSAIRE DE JUSTICE · V1.1 · MODE GESTION</div>
+      <div class="tag">SIMULATION DE COMMISSAIRE DE JUSTICE · V1.2 · MODE GESTION</div>
     </div>
   </div>
   <div class="top-actions">
@@ -78,10 +80,10 @@ main{flex:1;padding:24px;max-width:1680px;width:100%;margin:0 auto}.head{display
 <div id="overlay"></div>
 <div id="toast" class="toast hide"></div>
 <script>
-const KEY='etude360_v11';
+const KEY='etude360_v11'; // Conserve les sauvegardes V1.1
 const START_DATE=new Date(Date.UTC(2027,0,2));
 const MONTH_NAMES=['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
-const NAV=[['dashboard','◫ Tableau de bord'],['agenda','☷ Bureau du jour'],['dossiers','▤ Dossiers'],['amiable','☎ Pôle amiable'],['team','♙ Équipe'],['finance','€ Finances'],['clients','◇ Mandants'],['journal','◷ Journal']];
+const NAV=[['dashboard','◫ Tableau de bord'],['agenda','☷ Bureau du jour'],['dossiers','▤ Dossiers'],['kanban','◈ Vue des dossiers'],['amiable','☎ Pôle amiable'],['team','♙ Équipe'],['finance','€ Finances'],['clients','◇ Mandants'],['decisions','⚡ Décisions'],['journal','◷ Journal']];
 const SECTORS=[
   {sector:'Banque',name:'Banque du Nord',volume:85,color:'blue'},
   {sector:'Énergie',name:'Énergie Métropole',volume:120,color:'gold'},
@@ -118,7 +120,8 @@ const STAFF_LIBRARY={
 const FIRST=['Claire','Julien','Maya','Lina','Antoine','Sophie','Hugo','Nora','Sarah','Mathis','Louis','Camille','Noah','Léa'];
 const LAST=['Morel','Bernard','Petit','Dubois','Lefebvre','Garcia','Lambert','Robert','Dumont','Chevalier','Marchand','Colas'];
 
-let state=loadState();
+let state=null;
+state=loadState();
 let currentTab='dashboard';
 
 function initialState(){
@@ -152,7 +155,11 @@ function initialState(){
     marketMood:52,
     generatedThisMonth:-1,
     lost:false,
-    won:false
+    won:false,
+    nextIncidentDay:8,
+    pendingIncident:null,
+    incidentCount:0,
+    recentOutcomes:[]
   };
 }
 
@@ -223,7 +230,7 @@ function loadState(){
   return init;
 }
 function migrate(g){
-  if(!g.ledger)g.ledger=[]; if(!g.months)g.months=[]; if(g.generatedThisMonth===undefined)g.generatedThisMonth=-1; if(g.objective===undefined)g.objective={profit:65000,months:12}; if(g.marketMood===undefined)g.marketMood=52; if(g.nextStaffId===undefined)g.nextStaffId=100; if(g.won===undefined)g.won=false; if(g.lost===undefined)g.lost=false;
+  if(!g.ledger)g.ledger=[]; if(!g.months)g.months=[]; if(g.generatedThisMonth===undefined)g.generatedThisMonth=-1; if(g.objective===undefined)g.objective={profit:65000,months:12}; if(g.marketMood===undefined)g.marketMood=52; if(g.nextStaffId===undefined)g.nextStaffId=100; if(g.won===undefined)g.won=false; if(g.lost===undefined)g.lost=false; if(g.nextIncidentDay===undefined)g.nextIncidentDay=g.day+8; if(g.pendingIncident===undefined)g.pendingIncident=null; if(!g.recentOutcomes)g.recentOutcomes=[]; if(g.incidentCount===undefined)g.incidentCount=0;
   for(const c of g.clients||[]){ if(c.monthlyVolume===undefined)c.monthlyVolume=12; if(c.satisfaction===undefined)c.satisfaction=68; }
   for(const d of g.dossiers||[]){
     if(d.principalLeft===undefined)d.principalLeft=d.amount;
@@ -347,6 +354,80 @@ function achievements(){
   return items.slice(0,3);
 }
 
+
+const INCIDENTS=[
+ {id:'majorClient',icon:'🏦',tone:'blue',title:'Un grand compte exige des garanties',context:'Un mandant bancaire annonce un volume supplémentaire, mais souhaite un interlocuteur dédié et des comptes rendus réguliers.',choices:[
+  {text:'Constituer une équipe dédiée (1 400 €)',result:'Le mandant est rassuré et augmente légèrement ses volumes.',cash:-1400,rep:3,client:5,volume:12,xp:14},
+  {text:'Conserver l’organisation actuelle',result:'Le mandant conserve son portefeuille mais se montre plus exigeant.',cash:0,rep:-2,client:-8,volume:0,xp:3},
+  {text:'Refuser les volumes supplémentaires',result:'Vous protégez la capacité du personnel mais ralentissez votre développement.',cash:0,rep:-1,client:-3,volume:-8,xp:6}
+ ]},
+ {id:'quality',icon:'⚖️',tone:'gold',title:'Un clerc signale un dossier sensible',context:'Une contestation sérieuse apparaît dans un dossier déjà avancé. L’équipe attend vos instructions.',choices:[
+  {text:'Faire vérifier le dossier (650 €)',result:'La procédure est sécurisée et votre équipe évite une erreur coûteuse.',cash:-650,rep:3,client:2,xp:12},
+  {text:'Maintenir le calendrier',result:'Le calendrier est préservé, au prix d’une incertitude sur la qualité.',cash:0,rep:-3,client:-4,xp:3},
+  {text:'Suspendre les poursuites pour réexamen',result:'Vous protégez l’étude et la relation avec le débiteur, mais le dossier prend du retard.',cash:-120,rep:2,client:-1,xp:9}
+ ]},
+ {id:'staff',icon:'👥',tone:'blue',title:'Votre équipe demande un renfort',context:'Les collaborateurs signalent des journées chargées et proposent une réorganisation du travail.',choices:[
+  {text:'Former les collaborateurs (900 €)',result:'La qualité de traitement progresse.',cash:-900,rep:2,skill:5,xp:14},
+  {text:'Réorganiser les tâches (250 €)',result:'La coordination s’améliore légèrement.',cash:-250,rep:1,skill:2,xp:9},
+  {text:'Ne rien changer',result:'La pression sur les collaborateurs se maintient.',cash:0,rep:-2,xp:2}
+ ]},
+ {id:'systems',icon:'💻',tone:'red',title:'Incident informatique au pôle amiable',context:'Le logiciel de recouvrement ralentit. Vous devez décider comment maintenir la production.',choices:[
+  {text:'Intervention prioritaire (1 100 €)',result:'La production repart et le service client reste préservé.',cash:-1100,rep:2,client:2,xp:12},
+  {text:'Solution provisoire interne (280 €)',result:'La situation est contenue, sans être totalement résolue.',cash:-280,rep:0,xp:7},
+  {text:'Reporter la maintenance',result:'Les coûts immédiats sont évités mais la qualité de service baisse.',cash:0,rep:-3,client:-5,xp:2}
+ ]},
+ {id:'opportunity',icon:'🌟',tone:'green',title:'Une nouvelle opportunité commerciale',context:'Un acteur régional sollicite une proposition pour un portefeuille de créances régulières.',choices:[
+  {text:'Préparer une proposition personnalisée (750 €)',result:'Vous gagnez en visibilité et augmentez vos chances de signer de nouveaux dossiers.',cash:-750,rep:2,volume:7,xp:15},
+  {text:'Proposer une offre standard (180 €)',result:'L’approche est rapide et peu coûteuse.',cash:-180,rep:1,volume:3,xp:9},
+  {text:'Décliner pour protéger vos équipes',result:'L’activité reste maîtrisée.',cash:0,rep:0,xp:4}
+ ]}
+];
+function incidentNext(){if(state.pendingIncident)return; if(state.day>=state.nextIncidentDay){state.pendingIncident=pick(INCIDENTS).id;state.incidentCount++;state.nextIncidentDay=state.day+rand(9,18);log('Une décision de direction demande votre arbitrage.');}}
+function incidentData(){return INCIDENTS.find(i=>i.id===state.pendingIncident)||null;}
+function incidentChoice(idx){
+ const inc=incidentData();if(!inc)return;
+ const choice=inc.choices[idx];if(!choice)return;
+ if((choice.cash||0)<0&&state.cash<-6000){toast('Trésorerie insuffisante pour cette option.');return;}
+ state.cash=money(state.cash+(choice.cash||0));
+ if((choice.cash||0)<0)logEntry(null,'fixed',-(choice.cash),'Décision de direction : '+inc.title);
+ state.reputation=Math.max(0,Math.min(100,money(state.reputation+(choice.rep||0))));
+ if(choice.client){for(const c of state.clients)c.satisfaction=Math.max(30,Math.min(99,c.satisfaction+choice.client));}
+ if(choice.volume){const c=state.clients[0];if(c)c.monthlyVolume=Math.max(0,Math.min(350,c.monthlyVolume+choice.volume));}
+ if(choice.skill){for(const s of state.staff)s.skill=Math.min(99,s.skill+choice.skill);}
+ state.xp+=(choice.xp||0);
+ state.recentOutcomes.unshift({day:state.day,icon:inc.icon,title:inc.title,result:choice.result});
+ state.recentOutcomes=state.recentOutcomes.slice(0,15);
+ log(inc.title+' — '+choice.result);
+ state.pendingIncident=null;
+ save();render();toast(choice.result);
+}
+function incidentModal(){
+ const inc=incidentData();if(!inc)return;
+ document.getElementById('overlay').innerHTML=`<div class="modal-back"><div class="modal"><div class="modal-head"><div class="eyebrow">Décision de direction · ${datefmt(state.day)}</div><div class="incident-head"><div class="incident-art ${inc.tone}">${inc.icon}</div><div><h2 style="margin:0 0 7px">${esc(inc.title)}</h2><div class="muted">Événement de simulation · Votre choix aura des conséquences.</div></div></div></div><div class="modal-body"><p class="incident-copy">${esc(inc.context)}</p><div class="incident-choices">${inc.choices.map((c,i)=>`<button class="choice" data-inc-choice="${i}"><span>${i+1}</span><strong>${esc(c.text)}</strong><small>${c.cash<0?'Dépense '+euro(-c.cash):'Sans décaissement immédiat'}</small></button>`).join('')}</div></div></div></div>`;
+ document.querySelectorAll('[data-inc-choice]').forEach(b=>b.onclick=()=>incidentChoice(+b.dataset.incChoice));
+}
+function openIncident(){if(state.pendingIncident)incidentModal()}
+function incidentRibbon(){const inc=incidentData();return inc?`<div class="incident-ribbon"><div class="incident-symbol">${inc.icon}</div><div><b>Décision urgente : ${esc(inc.title)}</b><div class="muted">Votre étude attend un arbitrage avant de poursuivre.</div></div><button class="btn primary" data-act="incident">Décider</button></div>`:''}
+function outcomeFeed(){return (state.recentOutcomes||[]).slice(0,3).map(e=>`<div class="outcome-item"><div class="outcome-icon">${e.icon}</div><div><b>${esc(e.title)}</b><small>${esc(e.result)} · ${datefmt(e.day)}</small></div></div>`).join('')||'<div class="muted">Les décisions de direction apparaîtront ici au fil des journées.</div>'}
+function kanbanView(){
+ const all=activeCases().filter(d=>d.pole==='judicial');
+ const cols=[
+  {name:'🔴 À arbitrer',subtitle:'Décision attendue',list:all.filter(d=>!d.pending&&caseDue(d)<=state.day)},
+  {name:'🟠 En cours',subtitle:'Mesures ou démarches actives',list:all.filter(d=>!!d.pending || d.paymentPlan&&caseDue(d)>state.day)},
+  {name:'🟢 À suivre',subtitle:'Prochaines échéances',list:all.filter(d=>!d.pending && caseDue(d)>state.day)}
+ ];
+ return `${headerBlock('Vue des dossiers','Un véritable tableau de pilotage : chaque dossier est dans une file de travail, avec son profil, son montant et sa prochaine étape.')}
+ <div class="cards">${metric('Décisions en attente',cols[0].list.length,'À traiter',progressPct(cols[0].list.length,25))}${metric('Mesures en cours',cols[1].list.length,'Résultats à attendre',progressPct(cols[1].list.length,30))}${metric('Sous surveillance',cols[2].list.length,'Échéances futures',progressPct(cols[2].list.length,30))}${metric('Capacité des clercs',judicialLoad()+' / '+clercCapacity(),'Dossiers en portefeuille',progressPct(judicialLoad(),Math.max(1,clercCapacity())))}</div>
+ <div class="kanban kanban-large" style="margin-top:16px">${cols.map(col=>`<section class="kanban-col"><h3>${col.name} <span class="pill">${col.list.length}</span></h3><p class="muted">${col.subtitle}</p>${col.list.slice(0,20).map(d=>kanbanCase(d)).join('')||'<div class="empty-state">Aucun dossier dans cette colonne.</div>'}${col.list.length>20?`<p class="muted">${col.list.length-20} autres dossiers non affichés</p>`:''}</section>`).join('')}</div>`;
+}
+function kanbanCase(d){
+ const late=caseDue(d)<state.day;
+ return `<div class="kanban-case"><div class="case-top"><div class="mini-portrait ${d.badgeStyle||'blue'}">${d.profileIcon||'📁'}</div><span class="pill ${late?'red':'blue'}">${late?'Retard':'En cours'}</span></div><b>#${d.id} · ${esc(d.name)}</b><small>${esc(d.client)}</small><div class="case-strip">${statusPill(d.title?'Titre obtenu':'Sans titre',d.title?'green':'gold')}${statusPill(esc(d.profileLabel),d.badgeStyle)}</div><div class="case-row-inline"><strong>${euro(d.principalLeft)}</strong><span>${d.age} j</span></div><button class="btn dark" data-case="${d.id}" style="width:100%;margin-top:10px">Ouvrir et arbitrer</button></div>`;
+}
+function incidentView(){return `${headerBlock('Décisions de direction','Des situations imprévues font évoluer votre étude : qualité, équipes, grands comptes et systèmes.')}
+ ${incidentRibbon()||'<div class="notice">Aucun incident n’attend de décision. Avancez le temps pour découvrir de nouveaux événements.</div>'}
+ <section class="panel" style="margin-top:16px"><h2>Historique des arbitrages</h2><div class="outcome-feed">${outcomeFeed()}</div></section>`;}
+
 function dashboardView(){
   const month=currentMonthStats(), mission=missionOfDay();
   return `${heroBlock()}${headerBlock('Tableau de bord','Une vue direction plus visuelle : croissance, charge, cash et qualité de service.')}
@@ -376,7 +457,7 @@ function dashboardView(){
     <div>
       <section class="panel"><h2>📊 Tendance du chiffre d’affaires</h2>${sparkline()}<div class="muted" style="margin-top:10px">Visualisation des 6 derniers mois suivis par la comptabilité de gestion.</div></section>
       <section class="panel" style="margin-top:18px"><h2>🏅 Badges et jalons</h2><div class="grid3">${achievements().map(a=>`<div class="avatar-card"><strong>${a.icon} ${a.title}</strong><small style="display:block;margin-top:6px">${a.text}</small></div>`).join('')}</div></section>
-      <section class="panel" style="margin-top:18px"><h2>📰 Journal rapide</h2><div class="timeline">${state.events.slice(0,5).map(e=>`<div class="event">${esc(e.msg)}<span>${datefmt(e.day)}</span></div>`).join('')}</div></section>
+      <section class="panel" style="margin-top:18px"><h2>⚡ Dernières décisions</h2><div class="outcome-feed">${outcomeFeed()}</div></section><section class="panel" style="margin-top:18px"><h2>📰 Journal rapide</h2><div class="timeline">${state.events.slice(0,5).map(e=>`<div class="event">${esc(e.msg)}<span>${datefmt(e.day)}</span></div>`).join('')}</div></section>
     </div>
   </div>`;
 }
@@ -518,6 +599,7 @@ function clientsView(){
 function clientCard(c,i){return `<div class="avatar-card"><div class="row"><div class="debtor-avatar">${sectorIcon(c.sector)}</div><div><strong>${esc(c.name)}</strong><small>${esc(c.sector)} · satisfaction ${c.satisfaction}/100</small></div></div><div class="stat-list" style="margin-top:12px"><div class="stat-row"><span>Volume mensuel</span><strong><input data-client-volume="${i}" type="number" min="0" max="350" value="${c.monthlyVolume}" style="width:90px"> dossiers</strong></div><div class="stat-row"><span>File actuelle</span><strong>${state.dossiers.filter(d=>d.client===c.name&&d.state==='En cours').length} actifs</strong></div></div></div>`;}
 function sectorIcon(s){return s==='Banque'?'🏦':s==='Énergie'?'⚡':s==='Immobilier'?'🏢':s==='Télécom'?'📡':'💼'}
 
+function decisionsView(){return incidentView();}
 function journalView(){return `${headerBlock('Journal','Historique de la partie et décisions marquantes.')}<section class="panel"><div class="timeline">${state.events.map(e=>`<div class="event">${esc(e.msg)}<span>${datefmt(e.day)}</span></div>`).join('')}</div></section>`;}
 
 function headerBlock(title,sub){return `<div class="head"><div><div class="eyebrow">${state.studyName} · ${datefmt(state.day)}</div><h1>${title}</h1><div class="muted">${sub}</div></div></div>`}
@@ -540,8 +622,8 @@ function availableActions(d){
   if(d.state!=='En cours' || d.pole!=='judicial')return [];
   const arr=[];
   if(!d.pending){
-    if(!d.miseSent){arr.push('relance','appel','mise','enquete','plan');}
-    else if(!d.title){arr.push('relance','appel','titre','plan','enquete');}
+    if(d.miseSent===null){arr.push('relance','appel','mise','enquete','plan');}
+    else if(!d.title){arr.push('relance','appel','plan','enquete');if(state.day>=d.miseSent+4)arr.push('titre');}
     else if(!d.commandementSent){arr.push('commandement','saisiebanque','saisiemob','plan','enquete');}
     else {arr.push('saisiebanque','saisiemob','relance','appel','plan','enquete');}
     arr.push('cloture');
@@ -554,7 +636,7 @@ function performAction(id,action){
   if(action==='cloture'){
     d.state='Terminé'; d.statusLabel='Classé'; d.progress=100; state.reputation=Math.max(35,state.reputation-1); log(`Dossier #${d.id} classé sans suite.`); logCase(d,'Classement sans suite décidé.'); save(); render(); toast('Dossier classé.'); return;
   }
-  if(state.cash<a.cost){toast('Trésorerie insuffisante pour cette action.'); return;}
+  if(!availableActions(d).includes(action)){toast('Cette démarche n’est pas disponible dans ce dossier.');return;} if(state.cash<a.cost){toast('Trésorerie insuffisante pour cette action.'); return;}
   state.cash=money(state.cash-a.cost); logEntry(null,'actCost',a.cost,'Coût : '+a.label); d.pending={action,due:state.day+a.delay}; d.nextActionDay=state.day+a.delay+1; d.statusLabel=a.label+' en cours'; d.progress=Math.min(96,d.progress+rand(5,11)); if(action==='mise')d.miseSent=state.day; if(action==='commandement')d.commandementSent=state.day; logCase(d,a.msg); log(`Dossier #${d.id} : ${a.label}.`); save(); render(); toast('Décision enregistrée.');
 }
 function resolvePending(d){
@@ -611,10 +693,10 @@ function processAmiable(){
       logEntry(null,'collected',collected,'Recouvrement amiable');
       d.principalRecovered=money(d.principalRecovered+collected);
       d.principalLeft=money(Math.max(0,d.principalLeft-collected));
-      if(d.principalLeft<=0.01 || Math.random()<.55){ d.state='Terminé'; d.statusLabel='Soldé en amiable'; d.lastResolvedBy='amiable'; state.xp+=12; state.reputation=Math.min(97,state.reputation+1.1); logCase(d,`Le pôle amiable a recouvré ${euro(collected)}.`); log(`Dossier #${d.id} réglé par le pôle amiable.`); }
+      if(d.principalLeft<=0.01 || Math.random()<.55){ d.state='Terminé'; d.statusLabel='Soldé en amiable'; d.lastResolvedBy='amiable'; state.xp+=12; state.reputation=Math.min(97,money(state.reputation+0.08)); logCase(d,`Le pôle amiable a recouvré ${euro(collected)}.`); log(`Dossier #${d.id} réglé par le pôle amiable.`); }
       else { d.state='Terminé'; d.lastResolvedBy='amiable'; d.statusLabel='Transaction amiable'; logCase(d,`Accord amiable partiel conclu pour ${euro(collected)}.`); }
     }else{
-      d.pole='judicial'; d.transferredFromAmicable=true; d.statusLabel='Échec amiable · à arbitrer'; d.nextActionDay=state.day+1; d.amicableReviewDay=null; d.assignedTo=randomJudicialStaffId(); state.reputation=Math.max(30,state.reputation-.2); logCase(d,'Échec du pôle amiable. Dossier transféré au judiciaire.'); log(`Dossier #${d.id} transféré du pôle amiable vers le judiciaire.`);
+      d.pole='judicial'; d.transferredFromAmicable=true; d.statusLabel='Échec amiable · à arbitrer'; d.nextActionDay=state.day+1; d.amicableReviewDay=null; d.assignedTo=randomJudicialStaffId(); state.reputation=Math.max(30,money(state.reputation-.15)); logCase(d,'Échec du pôle amiable. Dossier transféré au judiciaire.'); log(`Dossier #${d.id} transféré du pôle amiable vers le judiciaire.`);
     }
   }
 }
@@ -633,7 +715,7 @@ function generateMonthlyBatches(){
     if(pressure>0){ c.satisfaction=Math.max(45,c.satisfaction-Math.min(5,Math.round(pressure/20))); log(`${c.name} souhaitait transmettre davantage de dossiers, mais l’étude manquait de capacité.`);} else { c.satisfaction=Math.min(95,c.satisfaction+1);}    
   }
 }
-function randomAmount(sector){ if(sector==='Banque')return rand(450,22000); if(sector==='Énergie')return rand(90,1900); if(sector==='Immobilier')return rand(350,7800); if(sector==='Télécom')return rand(120,2400); return rand(250,9000); }
+function randomAmount(sector){ if(sector==='Banque')return rand(350,5200); if(sector==='Énergie')return rand(90,1300); if(sector==='Immobilier')return rand(350,4500); if(sector==='Télécom')return rand(120,2400); return rand(250,9000); }
 function rollMonthIfNeeded(g=state,init=false){
   const key=monthKey(g.day); if(g.lastMonthProcessed===key && !init)return;
   const d=dayDate(g.day); if(init || g.lastMonthProcessed===-1){ g.lastMonthProcessed=key; return; }
@@ -654,7 +736,7 @@ function monthlyPulse(){
   }
 }
 function advanceOne(){
-  if(state.lost||state.won)return;
+  if(state.lost||state.won||state.pendingIncident)return;
   state.day++;
   monthlyPulse();
   generateMonthlyBatches();
@@ -664,6 +746,7 @@ function advanceOne(){
   processPaymentPlans();
   for(const d of activeCases().filter(x=>x.pole==='judicial')) resolvePending(d);
   reputationAndPressure();
+  incidentNext();
   checkWinLose();
 }
 function reputationAndPressure(){
@@ -677,7 +760,7 @@ function checkWinLose(){
   if(state.cash<-18000 || state.reputation<18){ state.lost=true; log('Partie compromise : l’étude n’a plus les marges suffisantes pour continuer.'); }
   if(monthsPlayed()>=state.objective.months && cumulativeProfit()>=state.objective.profit && state.cash>0){ state.won=true; log('Objectif atteint : votre étude a franchi le palier de rentabilité fixé par le jeu.'); }
 }
-function advance(days){ for(let i=0;i<days;i++)advanceOne(); save(); render(); toast(days===1?'Une journée s’est écoulée.':'Une semaine s’est écoulée.'); }
+function advance(days){ let elapsed=0;for(let i=0;i<days;i++){if(state.pendingIncident||state.lost||state.won)break;advanceOne();elapsed++;} save(); render(); if(state.pendingIncident)incidentModal(); else toast(elapsed===1?'Une journée s’est écoulée.':`${elapsed} journées se sont écoulées.`); }
 
 function hire(type){ const m=STAFF_LIBRARY[type]; if(!m)return; if(state.cash<m.hire){toast('Trésorerie insuffisante.'); return;} state.cash=money(state.cash-m.hire); logEntry(null,'hire',m.hire,'Recrutement'); state.staff.push({id:state.nextStaffId++,name:randomName(),type,role:m.role,salary:m.salary,skill:m.skill+rand(-4,4),avatar:m.avatar}); log(`Recrutement : ${m.role}.`); save(); render(); toast('Collaborateur recruté.'); }
 function prospect(){
@@ -702,6 +785,7 @@ function bind(){
     if(a==='hireAmiable')hire('amiable');
     if(a==='prospect')prospect();
     if(a==='hireMenu')openHireMenu();
+    if(a==='incident')openIncident();
   });
   document.querySelectorAll('[data-client-volume]').forEach(inp=>inp.onchange=()=>{const c=state.clients[+inp.dataset.clientVolume]; c.monthlyVolume=Math.max(0,Math.min(350,Math.round(Number(inp.value)||0))); save(); render();});
   const pole=document.getElementById('fPole'), status=document.getElementById('fStatus'), query=document.getElementById('fQuery');
@@ -720,9 +804,9 @@ function render(){
   if(state.lost){ html=`${headerBlock('Étude en difficulté','La partie est terminée. Vous pouvez repartir sur une nouvelle base.')}<section class="panel"><div class="notice"><b>❌ Défaite</b><br>Votre étude n’a pas tenu le choc : trésorerie insuffisante ou réputation trop dégradée. Dans ce jeu, grandir trop vite sans absorber les charges peut être fatal.</div><div class="case-actions" style="margin-top:12px"><button class="btn primary" onclick="resetGame()">Recommencer</button></div></section>`; }
   else if(state.won){ html=`${headerBlock('Objectif atteint','Votre étude a franchi le cap recherché : elle est rentable, structurée et crédible.')}${dashboardView()}<section class="panel" style="margin-top:18px"><div class="notice"><b>🏆 Victoire</b><br>Vous avez atteint l’objectif de rentabilité du jeu. Vous pouvez continuer à développer librement l’étude ou repartir pour faire mieux.</div></section>`; }
   else {
-    html={dashboard:dashboardView,agenda:agendaView,dossiers:dossiersView,amiable:amiableView,team:teamView,finance:financeView,clients:clientsView,journal:journalView}[currentTab]();
+    html={dashboard:dashboardView,agenda:agendaView,dossiers:dossiersView,kanban:kanbanView,decisions:decisionsView,amiable:amiableView,team:teamView,finance:financeView,clients:clientsView,journal:journalView}[currentTab]();
   }
-  document.getElementById('content').innerHTML=html;
+  document.getElementById('content').innerHTML=incidentRibbon()+html;
   bind();
   save();
 }
